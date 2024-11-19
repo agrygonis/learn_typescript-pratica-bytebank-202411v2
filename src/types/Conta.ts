@@ -1,3 +1,4 @@
+import { Conta } from './Conta';
 import { Armazenador } from "./Armazenador.js";
 import { GrupoTransacao } from "./GrupoTransacao.js";
 import { TipoTransacao } from "./TipoTransacao.js";
@@ -89,6 +90,16 @@ export class Conta {
     }
 }
 
-const conta = new Conta("Joana da Silva Oliveira");
+export class ContaPremium extends Conta {
+    registrarTransacao(transacao: Transacao): void {
+        if (transacao.tipoTransacao === TipoTransacao.DEPOSITO){
+            console.log("Ganhou um bônus de 0.50 centavos.")
+            transacao.valor += 0.5;
+        }
+        super.registrarTransacao(transacao);
+    }
+}
 
+const conta = new Conta("Joana da Silva Oliveira");
+const contaPremium = new ContaPremium("Mônica Hillman");
 export default conta;
