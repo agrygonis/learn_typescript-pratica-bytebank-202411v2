@@ -1,7 +1,8 @@
+import { Armazenador } from "./Armazenador.js";
 import { TipoTransacao } from "./TipoTransacao.js";
 export class Conta {
     nome;
-    saldo = JSON.parse(localStorage.getItem("saldo")) || 0;
+    saldo = Armazenador.obter("saldo") || 0;
     transacoes = JSON.parse(localStorage.getItem("transacoes"), (key, value) => {
         if (key === "data") {
             return new Date(value);
@@ -13,6 +14,12 @@ export class Conta {
     }
     getTitular() {
         return this.nome;
+    }
+    getSaldo() {
+        return this.saldo;
+    }
+    getDataAcesso() {
+        return new Date();
     }
     getGruposTransacoes() {
         const gruposTransacoes = [];
@@ -31,12 +38,6 @@ export class Conta {
             gruposTransacoes.at(-1).transacoes.push(transacao);
         }
         return gruposTransacoes;
-    }
-    getSaldo() {
-        return this.saldo;
-    }
-    getDataAcesso() {
-        return new Date();
     }
     registrarTransacao(novaTransacao) {
         if (novaTransacao.tipoTransacao == TipoTransacao.DEPOSITO) {
@@ -72,5 +73,4 @@ export class Conta {
     }
 }
 const conta = new Conta("Joana da Silva Oliveira");
-console.log(conta.getTitular());
 export default conta;
