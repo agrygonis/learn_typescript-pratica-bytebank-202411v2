@@ -1,4 +1,4 @@
-import { TipoTransacao } from "./TipoTransacao";
+import { TipoTransacao } from "./TipoTransacao.js";
 export class Conta {
     nome;
     saldo = JSON.parse(localStorage.getItem("saldo")) || 0;
@@ -10,6 +10,9 @@ export class Conta {
     }) || [];
     constructor(nome) {
         this.nome = nome;
+    }
+    getTitular() {
+        return this.nome;
     }
     getGruposTransacoes() {
         const gruposTransacoes = [];
@@ -69,4 +72,5 @@ export class Conta {
     }
 }
 const conta = new Conta("Joana da Silva Oliveira");
+console.log(conta.getTitular());
 export default conta;
